@@ -42,7 +42,7 @@ class Pokemon {
   double avgSpawns;
   String spawnTime;
   List<double>? multipliers;
-  List<Type> weaknesses;
+  List<String> weaknesses;
   List<Evolution>? nextEvolution;
   List<Evolution>? prevEvolution;
 
@@ -83,9 +83,7 @@ class Pokemon {
     multipliers: json["multipliers"] == null
         ? []
         : List<double>.from(json["multipliers"]!.map((x) => x?.toDouble())),
-    weaknesses: List<Type>.from(
-      json["weaknesses"].map((x) => typeValues.map[x]!),
-    ),
+    weaknesses: List<String>.from(json["weaknesses"]),
     nextEvolution: json["next_evolution"] == null
         ? []
         : List<Evolution>.from(
