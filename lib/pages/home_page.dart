@@ -14,38 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _searchCtrl = TextEditingController();
-  final List<PokemonCardItem> _all = [
-    PokemonCardItem(
-      name: 'Bulbasaur',
-      imageAsset: 'assets/images/Bulbasur.png',
-      bg: const Color(0xFFE5F7ED),
-    ),
-    PokemonCardItem(
-      name: 'Butterfree',
-      imageAsset: 'assets/images/Butterfree.png',
-      bg: const Color(0xFFEAF0FF),
-    ),
-    PokemonCardItem(
-      name: 'Squirtle',
-      imageAsset: 'assets/images/Squirtle.png',
-      bg: const Color(0xFFE6F6FF),
-    ),
-    PokemonCardItem(
-      name: 'Charmander',
-      imageAsset: 'assets/images/Charmander.png',
-      bg: const Color(0xFFFFEFE5),
-    ),
-    PokemonCardItem(
-      name: 'Pikachu',
-      imageAsset: 'assets/images/Pikachu.png',
-      bg: const Color(0xFFFFF7D9),
-    ),
-    PokemonCardItem(
-      name: 'Caterpie',
-      imageAsset: 'assets/images/caterpie.png',
-      bg: const Color(0xFFE9FAF1),
-    ),
-  ];
+
   PokemonModelList? _pokemonModelList;
   final Set<String> _favorites = {};
 
@@ -70,9 +39,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final query = _searchCtrl.text.trim().toLowerCase();
-    final items = query.isEmpty
-        ? _all
-        : _all.where((p) => p.name.toLowerCase().contains(query)).toList();
+    // final items = query.isEmpty
+    //     ? _all
+    //     : _all.where((p) => p.name.toLowerCase().contains(query)).toList();
 
     return Scaffold(
       body: SafeArea(
