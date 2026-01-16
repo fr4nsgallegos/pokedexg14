@@ -88,6 +88,7 @@ class _PokemonCardState extends State<PokemonCard> {
                     Center(
                       child: Image.network(
                         widget.item.img,
+                        height: MediaQuery.of(context).size.height * 0.14,
                         fit: BoxFit.contain,
                         errorBuilder: (_, __, ___) {
                           return const Icon(
