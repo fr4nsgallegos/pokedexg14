@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pokedexg14/models/pokemon_model_list.dart';
 
 class PokemonCard extends StatelessWidget {
-  final PokemonCardItem item;
+  final Pokemon item;
   final bool isFavorite;
   final VoidCallback onToggleFavorite;
 
@@ -15,7 +16,7 @@ class PokemonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: item.bg,
+        color: Colors.red.shade300,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Stack(
@@ -53,8 +54,8 @@ class PokemonCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Center(
-                  child: Image.asset(
-                    item.imageAsset,
+                  child: Image.network(
+                    item.img,
                     height: 78,
                     fit: BoxFit.contain,
                     errorBuilder: (_, __, ___) {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pokedexg14/apiservice/api_service.dart';
+import 'package:pokedexg14/models/pokemon_model_list.dart';
 import 'package:pokedexg14/widgets/pokemon_card.dart';
 import 'package:pokedexg14/widgets/search_box.dart';
 
@@ -12,7 +14,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _searchCtrl = TextEditingController();
-
   final List<PokemonCardItem> _all = [
     PokemonCardItem(
       name: 'Bulbasaur',
@@ -45,8 +46,20 @@ class _HomePageState extends State<HomePage> {
       bg: const Color(0xFFE9FAF1),
     ),
   ];
-
+  PokemonModelList? _pokemonModelList;
   final Set<String> _favorites = {};
+
+  Future<void> fetchPolemonModelList() async {
+    _pokemonModelList = await ApiService().getPokemonList();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    fetchPolemonModelList();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -89,36 +102,39 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 16),
 
-              Expanded(
-                child: GridView.builder(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 14,
-                    crossAxisSpacing: 14,
-                    childAspectRatio: 0.95,
-                  ),
-                  itemCount: items.length,
-                  itemBuilder: (_, i) {
-                    final p = items[i];
-                    final isFav = _favorites.contains(p.name);
+              _pokemonModelList == null
+                  ? Center(child: CircularProgressIndicator())
+                  : Expanded(
+                      child: GridView.builder(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 14,
+                              crossAxisSpacing: 14,
+                              childAspectRatio: 0.95,
+                            ),
+                        itemCount: _pokemonModelList!.pokemon.length,
+                        itemBuilder: (_, i) {
+                          final p = _pokemonModelList!.pokemon[i];
+                          final isFav = _favorites.contains(p.name);
 
-                    return PokemonCard(
-                      item: p,
-                      isFavorite: isFav,
-                      onToggleFavorite: () {
-                        setState(() {
-                          if (isFav) {
-                            _favorites.remove(p.name);
-                          } else {
-                            _favorites.add(p.name);
-                          }
-                        });
-                      },
-                    );
-                  },
-                ),
-              ),
+                          return PokemonCard(
+                            item: p,
+                            isFavorite: isFav,
+                            onToggleFavorite: () {
+                              setState(() {
+                                if (isFav) {
+                                  _favorites.remove(p.name);
+                                } else {
+                                  _favorites.add(p.name);
+                                }
+                              });
+                            },
+                          );
+                        },
+                      ),
+                    ),
             ],
           ),
         ),
