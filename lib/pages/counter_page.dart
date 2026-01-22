@@ -12,16 +12,28 @@ class CounterPage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          counter.incremente();
+          // counter.incremente();
+          context.read<CounterProvider>().incremente();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
-
-      appBar: AppBar(title: Text("Contador - Provider")),
+      appBar: AppBar(
+        title: const Text("Contador - Provider"),
+        actions: [
+          IconButton(
+            tooltip: 'Reset',
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              // counter.reset();
+              context.read<CounterProvider>().reset();
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: Text(
           "Contador: ${counter.count}",
-          style: TextStyle(fontSize: 30),
+          style: const TextStyle(fontSize: 30),
         ),
       ),
     );
