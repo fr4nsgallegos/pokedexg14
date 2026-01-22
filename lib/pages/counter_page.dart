@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedexg14/pages/counter2_page.dart';
 import 'package:pokedexg14/providers/counter_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,9 @@ class CounterPage extends StatelessWidget {
     final counter = context.watch<CounterProvider>();
     // watch: escucho y me redibujo
     // read: solo leo y ejecuto, NO ME REDIBUJO
+
+    // SELECT es para escuchar solamente una propiedad, esto es mucho más eficiente cuando el provider tiene muchas cosas
+    final count = context.select<CounterProvider, int>((p) => p.count);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -47,6 +51,16 @@ class CounterPage extends StatelessWidget {
                 return Text(
                   "Contador desde consumer: ${counter.count}",
                   style: const TextStyle(fontSize: 30),
+                );
+              },
+            ),
+            IconButton(
+              tooltip: 'Ir a pantalla 2',
+              icon: const Icon(Icons.open_in_new_sharp),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Counter2Page()),
                 );
               },
             ),
