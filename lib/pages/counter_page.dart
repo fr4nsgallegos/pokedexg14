@@ -8,6 +8,8 @@ class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final counter = context.watch<CounterProvider>();
+    // watch: escucho y me redibujo
+    // read: solo leo y ejecuto, NO ME REDIBUJO
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
