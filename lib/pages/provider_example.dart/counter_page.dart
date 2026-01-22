@@ -49,7 +49,7 @@ class CounterPage extends StatelessWidget {
             Consumer<CounterProvider>(
               builder: (context, value, child) {
                 return Text(
-                  "Contador desde consumer: ${counter.count}",
+                  "Contador desde consumer: ${value.count}",
                   style: const TextStyle(fontSize: 30),
                 );
               },

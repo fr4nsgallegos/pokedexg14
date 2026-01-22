@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedexg14/models/product_model.dart';
+import 'package:pokedexg14/pages/provider_example.dart/cart_page.dart';
 import 'package:pokedexg14/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,10 +16,29 @@ class ShopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = context.watch<CartProvider>();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tienda"),
+        title: const Text("Tienda"),
         actions: [
+          IconButton(
+            tooltip: "Ver carrito",
+            icon: const Icon(Icons.shopping_cart_outlined),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const CartPage()),
+              );
+            },
+          ),
+          IconButton(
+            tooltip: "Limpiar carrito",
+            icon: const Icon(Icons.delete_sweep),
+            onPressed: cart.items.isEmpty
+                ? null
+                : () => context.read<CartProvider>().clear(),
+          ),
+
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text("items: ${cart.items.length} "),
@@ -36,7 +56,7 @@ class ShopPage extends StatelessWidget {
               onPressed: () {
                 context.read<CartProvider>().add(p);
               },
-              icon: Icon(Icons.shopping_bag_outlined),
+              icon: const Icon(Icons.shopping_bag_outlined),
             ),
           );
         },
@@ -45,7 +65,7 @@ class ShopPage extends StatelessWidget {
         padding: const EdgeInsets.all(32),
         child: Text(
           "TOTAL: S/ ${cart.total.toStringAsFixed(2)}",
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     );
