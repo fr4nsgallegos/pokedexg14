@@ -33,9 +33,24 @@ class CounterPage extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text(
-          "Contador: ${counter.count}",
-          style: const TextStyle(fontSize: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Contador: ${counter.count}",
+              style: const TextStyle(fontSize: 30),
+            ),
+            Divider(height: 32),
+            // CONSUMER: es cuando quiero que solo una parte de la pantalla se redibuje, no toda la pantalla.
+            Consumer<CounterProvider>(
+              builder: (context, value, child) {
+                return Text(
+                  "Contador desde consumer: ${counter.count}",
+                  style: const TextStyle(fontSize: 30),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
