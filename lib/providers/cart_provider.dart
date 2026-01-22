@@ -9,7 +9,7 @@ class CartProvider extends ChangeNotifier {
   double get total => _items.fold(0, (sum, item) => sum + item.price);
 
   void add(ProductModel p) {
-    items.add(p);
+    _items.add(p);
     notifyListeners();
   }
 

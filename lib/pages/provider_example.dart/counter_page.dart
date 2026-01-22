@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedexg14/pages/counter2_page.dart';
+import 'package:pokedexg14/pages/provider_example.dart/counter2_page.dart';
 import 'package:pokedexg14/providers/counter_provider.dart';
 import 'package:provider/provider.dart';
 
